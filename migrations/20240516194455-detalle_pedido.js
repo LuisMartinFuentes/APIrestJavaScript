@@ -12,6 +12,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         allowNull: false,
+        primaryKey: true,
       },
       id_producto: {
         type: Sequelize.INTEGER,
@@ -22,6 +23,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         allowNull: false,
+        primaryKey: true,
       },
       cantidad: {
         type: Sequelize.INTEGER,
