@@ -28,9 +28,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Producto.associate = function(models) {
-    Producto.belongsToMany(models.Pedido, { through: models.Detalle_Pedido, foreignKey: 'id_producto' });
-    Producto.hasMany(models.Detalle_Pedido, { foreignKey: 'id_producto' });
-    Producto.hasMany(models.Orden_Compra, { foreignKey: 'id_producto' });
+    Producto.belongsToMany(models.Pedido, { through: models.DetallePedido, foreignKey: 'id_producto' });
+    Producto.hasMany(models.DetallePedido, { foreignKey: 'id_producto' });
+    Producto.hasMany(models.OrdenCompra, { foreignKey: 'id_producto' });
   };
 
   return Producto;

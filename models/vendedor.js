@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Vendedor.associate = function(models) {
-    Vendedor.hasMany(models.Orden_Compra, { foreignKey: 'id_vendedor' });
+    Vendedor.hasMany(models.OrdenCompra, { foreignKey: 'id_vendedor' });
   };
 
   return Vendedor;
