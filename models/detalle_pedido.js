@@ -1,28 +1,40 @@
-const { DataTypes, Sequelize } = require('sequelize');
-const sequelize = new Sequelize('MiAguaDB', 'root', '2003', {
-  host: '127.0.0.1', // Usa la dirección IPv4
-  dialect: 'mariadb'
-});
+'use strict';
 
-const DetallePedido = sequelize.define('DetallePedido', {
-  id_pedido: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  id_producto: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  cantidad: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  precio_unitario: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false
-  }
-}, {
-  tableName: 'DetallePedido' // Especifica el nombre de la tabla
-});
+module.exports = (sequelize, DataTypes) => {
+  const DetallePedido = sequelize.define('DetallePedido', {
+    id_pedido: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Pedido',
+        key: 'id',
+      },
+      primaryKey: true,
+    },
+    id_producto: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Producto',
+        key: 'id',
+      },
+      primaryKey: true,
+    },
+    cantidad: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    precio_unitario: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+  }, {
+    tableName: 'DetallePedido',
+    timestamps: true,
+  });
 
-module.exports = DetallePedido;
+  DetallePedido.associate = function(models) {
+    DetallePedido.belongsTo(models.Pedido, { foreignKey: 'id_pedido' });
+    DetallePedido.belongsTo(models.Producto, { foreignKey: 'id_producto' });
+  };
+
+  return DetallePedido;
+};

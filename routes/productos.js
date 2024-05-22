@@ -1,5 +1,6 @@
 const express = require('express');
-const Producto = require('../models/producto');
+const {Producto} = require('../models'); 
+
 const router = express.Router();
 
 // Obtener todos los productos

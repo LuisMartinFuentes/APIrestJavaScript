@@ -2,37 +2,35 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Crear la tabla Puntos
     await queryInterface.createTable('Puntos', {
       id_cliente: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        allowNull: false,
         references: {
           model: 'Cliente',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       cantidad: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
-      }
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Eliminar la tabla Puntos
     await queryInterface.dropTable('Puntos');
-  }
+  },
 };

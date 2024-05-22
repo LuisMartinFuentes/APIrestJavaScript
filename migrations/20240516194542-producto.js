@@ -2,47 +2,47 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Crear la tabla Producto
     await queryInterface.createTable('Producto', {
       id: {
-        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
+        type: Sequelize.INTEGER,
       },
       nombre: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull: false,
       },
       descripcion: {
         type: Sequelize.TEXT,
-        allowNull: true
+        allowNull: false,
       },
       precio: {
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false
+        allowNull: false,
       },
       cantidad_disponible: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       imagen: {
         type: Sequelize.STRING(255),
-        allowNull: true
+        allowNull: true,
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
-      }
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Eliminar la tabla Producto
     await queryInterface.dropTable('Producto');
-  }
+  },
 };
-

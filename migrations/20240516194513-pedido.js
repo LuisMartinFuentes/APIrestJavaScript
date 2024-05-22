@@ -2,44 +2,44 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Crear la tabla Pedido
     await queryInterface.createTable('Pedido', {
       id: {
-        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
+        type: Sequelize.INTEGER,
       },
       id_cliente: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: 'Cliente',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       fecha_pedido: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       estado: {
         type: Sequelize.STRING(20),
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
-      }
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Eliminar la tabla Pedido
     await queryInterface.dropTable('Pedido');
-  }
+  },
 };

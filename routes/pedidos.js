@@ -1,5 +1,6 @@
 const express = require('express');
-const Pedido = require('../models/pedido');
+const {Pedido} = require('../models'); 
+
 const router = express.Router();
 
 // Obtener todos los pedidos

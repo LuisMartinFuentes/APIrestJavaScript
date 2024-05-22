@@ -1,6 +1,5 @@
 const express = require('express');
-const Cliente = require('../models/cliente');
-const CodigoBarras = require('../models/codigo_barras');
+const { Cliente, Codigo_Barras } = require('../models'); 
 const router = express.Router();
 const faker = require('faker');
 
@@ -50,7 +49,7 @@ router.post('/', async (req, res) => {
     const codigoBarras = faker.datatype.number({min: 1000000000000, max: 9999999999999}).toString();
 
     // Guardar el código de barras en la tabla Codigo_Barras
-    await CodigoBarras.create({ id_cliente: nuevoCliente.id, codigo: codigoBarras });
+    await Codigo_Barras.create({ id_cliente: nuevoCliente.id, codigo: codigoBarras });
 
     res.status(201).json(nuevoCliente);
   } catch (error) {

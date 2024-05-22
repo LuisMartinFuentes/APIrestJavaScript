@@ -1,5 +1,6 @@
 const express = require('express');
-const Cupon = require('../models/cupon');
+const {Cupon} = require('../models'); 
+
 const router = express.Router();
 
 // Obtener todos los cupones

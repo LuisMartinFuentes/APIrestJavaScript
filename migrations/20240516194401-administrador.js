@@ -2,39 +2,39 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Crear la tabla Administrador
     await queryInterface.createTable('Administrador', {
       id: {
-        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
+        type: Sequelize.INTEGER,
       },
       nombre_completo: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull: false,
       },
       telefono: {
         type: Sequelize.BIGINT,
-        allowNull: false
+        allowNull: false,
       },
       contrasenia: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
-      }
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Eliminar la tabla Administrador
     await queryInterface.dropTable('Administrador');
-  }
+  },
 };
-

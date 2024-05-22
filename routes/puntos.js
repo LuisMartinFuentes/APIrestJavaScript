@@ -1,7 +1,7 @@
 const express = require('express');
-const Puntos = require('../models/puntos');
-const router = express.Router();
+const {Puntos} = require('../models'); 
 
+const router = express.Router();
 // Obtener todos los puntos
 router.get('/', async (req, res) => {
   try {

@@ -1,5 +1,6 @@
 const express = require('express');
-const Vendedor = require('../models/vendedor');
+const {Vendedor} = require('../models'); 
+
 const router = express.Router();
 
 // Obtener todos los vendedores

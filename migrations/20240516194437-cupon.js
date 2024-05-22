@@ -2,39 +2,39 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Crear la tabla Cupon
     await queryInterface.createTable('Cupon', {
       id: {
-        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
+        type: Sequelize.INTEGER,
       },
       codigo: {
         type: Sequelize.STRING(50),
-        unique: true,
-        allowNull: false
+        allowNull: false,
       },
       descuento: {
         type: Sequelize.DECIMAL(5, 2),
-        allowNull: false
+        allowNull: false,
       },
       validez: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
-      }
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Eliminar la tabla Cupon
     await queryInterface.dropTable('Cupon');
-  }
+  },
 };

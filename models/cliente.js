@@ -1,24 +1,29 @@
-const { DataTypes, Sequelize } = require('sequelize');
-const sequelize = new Sequelize('MiAguaDB', 'root', '2003', {
-  host: '127.0.0.1',
-  dialect: 'mariadb'
-});
+'use strict';
 
-const Cliente = sequelize.define('Cliente', {
-  nombre_completo: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  },
-  telefono: {
-    type: DataTypes.BIGINT,
-    allowNull: false
-  },
-  contrasenia: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  }
-}, {
-  tableName: 'Cliente' // Especifica el nombre de la tabla
-});
+module.exports = (sequelize, DataTypes) => {
+  const Cliente = sequelize.define('Cliente', {
+    nombre_completo: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    telefono: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    contrasenia: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+  }, {
+    tableName: 'Cliente',
+    timestamps: true,
+  });
 
-module.exports = Cliente;
+  Cliente.associate = function(models) {
+    Cliente.hasMany(models.Pedido, { foreignKey: 'id_cliente' });
+    Cliente.hasOne(models.Codigo_Barras, { foreignKey: 'id_cliente' });
+    Cliente.hasOne(models.Puntos, { foreignKey: 'id_cliente' });
+  };
+
+  return Cliente;
+};

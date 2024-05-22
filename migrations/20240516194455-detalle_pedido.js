@@ -2,44 +2,49 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Crear la tabla Pedido
-    await queryInterface.createTable('Pedido', {
-      id: {
+    await queryInterface.createTable('DetallePedido', {
+      id_pedido: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      id_cliente: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
-          model: 'Cliente',
-          key: 'id'
+          model: 'Pedido',
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        primaryKey: true,
       },
-      fecha_pedido: {
-        type: Sequelize.DATE,
-        allowNull: false
+      id_producto: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Producto',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        primaryKey: true,
       },
-      estado: {
-        type: Sequelize.STRING(20),
-        allowNull: false
+      cantidad: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      precio_unitario: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        allowNull: false
-      }
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Eliminar la tabla Pedido
-    await queryInterface.dropTable('Pedido');
-  }
+    await queryInterface.dropTable('DetallePedido');
+  },
 };

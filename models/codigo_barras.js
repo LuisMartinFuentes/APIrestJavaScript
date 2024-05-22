@@ -1,18 +1,28 @@
-const { DataTypes, Sequelize } = require('sequelize');
-const sequelize = new Sequelize('MiAguaDB', 'root', '2003', {
-  host: '127.0.0.1', // Usa la dirección IPv4
-  dialect: 'mariadb'
-});
+'use strict';
 
-const CodigoBarras = sequelize.define('Codigo_Barras', {
-  codigo: {
-    type: DataTypes.STRING(13),
-    primaryKey: true,
-    allowNull: false,
-    unique: true
-  }
-}, {
-  tableName: 'Codigo_Barras' // Especifica el nombre de la tabla
-});
+module.exports = (sequelize, DataTypes) => {
+  const Codigo_Barras = sequelize.define('Codigo_Barras', {
+    id_cliente: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      references: {
+        model: 'Cliente',
+        key: 'id',
+      },
+    },
+    codigo: {
+      type: DataTypes.STRING(50),
+      unique: true,
+      allowNull: false,
+    },
+  }, {
+    tableName: 'Codigo_Barras',
+    timestamps: true,
+  });
 
-module.exports = CodigoBarras;
+  Codigo_Barras.associate = function(models) {
+    Codigo_Barras.belongsTo(models.Cliente, { foreignKey: 'id_cliente' });
+  };
+
+  return Codigo_Barras;
+};

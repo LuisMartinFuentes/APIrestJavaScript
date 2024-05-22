@@ -1,5 +1,6 @@
 const express = require('express');
-const Administrador = require('../models/administrador');
+const { Administrador } = require('../models'); 
+
 const router = express.Router();
 
 // Obtener todos los administradores

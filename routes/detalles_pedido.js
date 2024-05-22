@@ -1,5 +1,6 @@
 const express = require('express');
-const DetallePedido = require('../models/detalle_pedido');
+const {DetallePedido} = require('../models'); 
+
 const router = express.Router();
 
 // Obtener todos los detalles de pedidos

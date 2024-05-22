@@ -1,21 +1,27 @@
-const { DataTypes, Sequelize } = require('sequelize');
-const sequelize = new Sequelize('MiAguaDB', 'root', '2003', {
-  host: '127.0.0.1', // Usa la dirección IPv4
-  dialect: 'mariadb'
-});
+'use strict';
 
-const Puntos = sequelize.define('Puntos', {
-  id_cliente: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
-  },
-  cantidad: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  }
-}, {
-  tableName: 'Puntos' // Especifica el nombre de la tabla
-});
+module.exports = (sequelize, DataTypes) => {
+  const Puntos = sequelize.define('Puntos', {
+    id_cliente: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      references: {
+        model: 'Cliente',
+        key: 'id',
+      },
+    },
+    cantidad: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  }, {
+    tableName: 'Puntos',
+    timestamps: true,
+  });
 
-module.exports = Puntos;
+  Puntos.associate = function(models) {
+    Puntos.belongsTo(models.Cliente, { foreignKey: 'id_cliente' });
+  };
+
+  return Puntos;
+};

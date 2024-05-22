@@ -1,5 +1,6 @@
 const express = require('express');
-const OrdenCompra = require('../models/orden_compra');
+const {OrdenCompra} = require('../models'); 
+
 const router = express.Router();
 
 // Obtener todas las órdenes de compra

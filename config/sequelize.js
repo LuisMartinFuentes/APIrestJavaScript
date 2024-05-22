@@ -1,14 +1,27 @@
-// sequelize.js
-
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
-const config = require('./config.json');
 
-const env = process.env.NODE_ENV || 'development';
-const dbConfig = config[env];
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASS,
+  {
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
+    logging: false, 
+  }
+);
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect
-});
+const connectToDatabase = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Conexión a la base de datos establecida correctamente');
+  } catch (error) {
+    console.error('Error al conectar a la base de datos:', error);
+  }
+};
 
-module.exports = sequelize;
+module.exports = {
+  sequelize,
+  connectToDatabase
+};

@@ -1,11 +1,11 @@
 const express = require('express');
-const CodigoBarras = require('../models/codigo_barras');
-const router = express.Router();
+const {Codigo_Barras} = require('../models'); 
 
+const router = express.Router();
 // Obtener todos los códigos de barras
 router.get('/', async (req, res) => {
   try {
-    const codigosBarras = await CodigoBarras.findAll();
+    const codigosBarras = await Codigo_Barras.findAll();
     res.json(codigosBarras);
   } catch (error) {
     res.status(500).json({ error: error.message });
